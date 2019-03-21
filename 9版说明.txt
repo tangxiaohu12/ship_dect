@@ -1,0 +1,44 @@
+7版
+
+if MeanThea>=0&&MeanThea<pi
+    bow_angle=(90-better_theta)/180*pi;
+    if abs(MeanThea-bow_angle)>=1/4*pi
+        hough_error=1;
+       %bow_angle=MeanThea;
+    end
+else
+    bow_angle=(90-better_theta+180)/180*pi;
+    if abs(2*pi+MeanThea-bow_angle)>=1/4*pi
+        hough_error=1;
+    %bow_angle=MeanThea;
+    end
+end
+
+
+再利用角度筛选过程中会出现角度在正负边界错误计算的bug
+解决
+%1：减少并提高原始角度的精确程度。，防止同一角度同时出现正负问题   7版
+%2：舍弃此处理过程，  为排除虚警 增加houngh角度方差判别的方法。8版
+7版最新解决方法：
+利用hough舰首前后采样判断具体角度，同时利用方差筛选，效果不错
+
+
+
+
+
+
+
+9版
+
+1、针对重复虚警高的情况
+
+     直接进行连通邻域归一
+
+2、舰首方向用的是第一次是舰首提取hough的方向，第二次是舰身
+
+3、增加语义筛选，提高准确率，但并排检测效果差
+
+4、此像素级的检测方法对空间分辨率要求统一在固定的0.5m/pixel
+
+
+
